@@ -1,0 +1,7 @@
+{
+    "status": "success",
+    "neighbors": [
+        ["Node_A", "192.168.1.100", "some_data", "some_data", "some_data", "-75"],
+        ["Node_B", "192.168.1.101", "some_data", "some_data", "some_data", "-85"]
+    ]
+}

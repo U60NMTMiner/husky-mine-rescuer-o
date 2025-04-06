@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>husky_gpio_signal</name>
+  <version>0.0.1</version>
+  <description>The husky_gpio_signal_node package</description>
+
+  <maintainer email="vandroulakis100@gmail.com">Your Name</maintainer>
+
+  <license>BSD</license>
+
+  <!-- Runtime and build dependencies -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>catkin</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>husky_nodedrop</build_depend>
+
+  <exec_depend>catkin</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>husky_nodedrop</exec_depend>
+
+  <!-- Optional: if you need the Python GPIO package to be listed as a dependency -->
+  <!--exec_depend>python3-jetson-gpio</exec_depend-->
+
+</package>
+

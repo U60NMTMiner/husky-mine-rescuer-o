@@ -1,0 +1,4 @@
+<launch>
+    <rosparam command="load" file="$(find husky_nodedrop)/config/husky_nodedrop.yaml" />
+    <node name="husky_nodedrop_node" pkg="husky_nodedrop" type="husky_nodedrop_node" output="screen" />
+</launch>

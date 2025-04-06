@@ -1,0 +1,5 @@
+husky_control
+/home/jetson/husky/ros/catkin_ws/devel/.private/husky_control/cmake.lock /home/jetson/husky/ros/catkin_ws/devel/./cmake.lock
+/home/jetson/husky/ros/catkin_ws/devel/.private/husky_control/share/husky_control/cmake/husky_controlConfig-version.cmake /home/jetson/husky/ros/catkin_ws/devel/share/husky_control/cmake/husky_controlConfig-version.cmake
+/home/jetson/husky/ros/catkin_ws/devel/.private/husky_control/share/husky_control/cmake/husky_controlConfig.cmake /home/jetson/husky/ros/catkin_ws/devel/share/husky_control/cmake/husky_controlConfig.cmake
+/home/jetson/husky/ros/catkin_ws/devel/.private/husky_control/lib/pkgconfig/husky_control.pc /home/jetson/husky/ros/catkin_ws/devel/lib/pkgconfig/husky_control.pc

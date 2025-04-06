@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>
+    <rosparam file="$(find can)/config/can.yaml" />
+    <node name="can" pkg="can" type="can_node" launch-prefix="gdb -ex run --args"/>
+</launch>

@@ -1,0 +1,14 @@
+<launch>
+    <!-- Define arguments with default values >
+    <arg name="gpio_pin" default="PBB.00" />
+    <arg name="buffer_time" default="15.0" /-->
+
+    <!-- Set parameters using arguments, with defaults >
+    <param name="gpio_pin" value="$(arg gpio_pin)" />
+    <param name="buffer_time" value="$(arg buffer_time)" /-->
+
+    <!-- Node declaration -->
+    <rosparam command="load" file="$(find husky_gpio_signal)/config/husky_gpio_signal.yaml" />
+    <node name="husky_gpio_signal_node" pkg="husky_gpio_signal" type="husky_gpio_signal_node" output="screen" />
+</launch>
+

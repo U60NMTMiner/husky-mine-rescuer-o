@@ -1,0 +1,2 @@
+sensors/velodyne/velodyne
+/home/jetson/husky/ros/catkin_ws/devel/.private/velodyne/cmake.lock /home/jetson/husky/ros/catkin_ws/devel/./cmake.lock

@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<!--
+Copyright (c) 2014, Clearpath Robotics
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of Clearpath Robotics nor the
+      names of its contributors may be used to endorse or promote products
+      derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<launch>
+    <arg name="port" default="$(optenv HUSKY_PORT /dev/prolific)" />
+    <arg name="pi_addr" default="$(optenv PI_ADDRESS 10.0.0.5)" />
+    <arg name="logit" default="$(optenv HUSKY_LOGITECH false)" />
+    <!--arg name="ouster" default="$(optenv HUSKY_OUSTER true)" /-->
+    <arg name="ouster" default="false" />
+    <arg name="velodyne" default="false" />
+    <arg name="imu" default="false" />
+    <arg name="map" default="false" />
+    <arg name="base" default="true" />
+    <arg name="can" default="true" />
+
+    <param name="use_sim_time" value="false" />
+
+    <group if="$(arg base)">
+        <remap from="husky_velocity_controller/odom" to="/odom" />
+
+        <!-- Husky harware driver -->
+        <node pkg="husky_base" type="husky_node" name="husky_node" required="true">
+            <rosparam subst_value="true">
+                port: $(arg port)
+                
+                control_frequency: 10.0
+                diagnostic_frequency: 1.0
+                
+                max_acceleration: 2.0
+                max_speed: 1.0
+                wheel_diameter: 0.3302
+                polling_timeout: 10.0
+            </rosparam>
+        </node>
+
+        <!-- Differential controller parameters and basic localization -->
+        <include file="$(find husky_control)/launch/control.launch">
+            <arg name="enable_ekf" value="false" />
+        </include>
+
+        <!--Teleop -->
+        <include if="$(arg logit)" file="$(find husky_control)/launch/teleop.launch" />
+
+        <!-- Diagnostic Aggregator -->
+        <node pkg="diagnostic_aggregator" type="aggregator_node" name="diagnostic_aggregator">
+            <rosparam command="load" file="$(find husky_base)/config/diagnostics.yaml"/>
+        </node>
+    </group>
+
+     <group if="$(arg ouster)">
+	    <remap from="/ouster/points" to="/points2" />
+	    <remap from="/ouster/imu" to="/imu" />
+        <include file="$(find ouster_ros)/launch/sensor.launch">
+            <arg name="sensor_hostname" value="ouster" />
+            <arg name="lidar_mode" value="512x10" />
+            <arg name="timestamp_mode" value="TIME_FROM_ROS_TIME" />
+        </include>
+    </group>
+
+    <group if="$(arg velodyne)">
+        <remap from="/velodyne_points" to="/points2" />
+        <include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch">
+        </include>
+    </group>
+
+    <group if="$(arg map)">
+        <node name="cartographer_node" pkg="cartographer_ros"
+            type="cartographer_node" args="
+            -configuration_directory $(find cartographer_ros)/configuration_files
+            -configuration_basename husky.lua"
+            output="screen">
+        </node>
+
+        <node name="cartographer_occupancy_grid_node" pkg="cartographer_ros"
+            type="cartographer_occupancy_grid_node" args="-resolution 0.05" />
+    </group>
+
+    <group if="$(arg can)">
+        <include file="$(find can)/launch/can.launch" />
+    </group>
+
+    <!--
+    THIS GROUP MUST BE LAST
+    Everything after it will run on the pi
+    -->
+    <group if="$(arg imu)">
+        <remap from="vectornav/IMU" to="imu/data_raw" />
+        <remap from="vectornav/Mag" to="imu/mag" />
+        <remap from="imu/data" to="imu" />
+        <machine
+            name="pi"
+            address="$(arg pi_addr)"
+            user="pi"
+            password="123456789"
+            env-loader="/home/pi/husky/scripts/env_pi.sh"
+            default="true"
+        />
+        <include file="$(find vectornav)/launch/vectornav.launch" />
+        <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter">
+            <rosparam>
+                publish_tf: false
+            </rosparam>
+        </node>
+    </group>
+</launch>

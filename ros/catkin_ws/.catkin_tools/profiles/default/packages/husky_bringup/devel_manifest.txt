@@ -1,0 +1,5 @@
+husky_bringup
+/home/jetson/husky/ros/catkin_ws/devel/.private/husky_bringup/cmake.lock /home/jetson/husky/ros/catkin_ws/devel/./cmake.lock
+/home/jetson/husky/ros/catkin_ws/devel/.private/husky_bringup/share/husky_bringup/cmake/husky_bringupConfig.cmake /home/jetson/husky/ros/catkin_ws/devel/share/husky_bringup/cmake/husky_bringupConfig.cmake
+/home/jetson/husky/ros/catkin_ws/devel/.private/husky_bringup/share/husky_bringup/cmake/husky_bringupConfig-version.cmake /home/jetson/husky/ros/catkin_ws/devel/share/husky_bringup/cmake/husky_bringupConfig-version.cmake
+/home/jetson/husky/ros/catkin_ws/devel/.private/husky_bringup/lib/pkgconfig/husky_bringup.pc /home/jetson/husky/ros/catkin_ws/devel/lib/pkgconfig/husky_bringup.pc

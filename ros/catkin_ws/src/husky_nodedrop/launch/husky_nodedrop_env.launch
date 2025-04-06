@@ -1,0 +1,19 @@
+<launch>
+   <arg name="ip_address" default="$(env HUSKY_NODEDROP_IP)" />
+   <arg name="polling_rate" default="$(env HUSKY_POLLING_RATE)" />
+   <arg name="rssi_threshold" default="$(env HUSKY_RSSI_THRESHOLD)" />
+
+  <!-- Launch the husky_nodedrop node -->
+  <node name="husky_nodedrop_node" pkg="husky_nodedrop" type="husky_nodedrop_node" output="screen">
+    
+    <!-- Set the IP address of the device -->
+    <param name="ip_address" value="$(arg ip_address)" />
+
+    <!-- Optional: Set the rate for polling (default is 1 Hz) -->
+    <param name="polling_rate" value="$(arg polling_rate)" />
+    
+    <!-- Optional: Set the RSSI threshold for triggering drop -->
+    <param name="rssi_threshold" value="$(arg rssi_threshold)" />
+
+  </node>
+</launch>

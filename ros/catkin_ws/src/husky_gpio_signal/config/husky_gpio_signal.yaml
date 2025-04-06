@@ -1,0 +1,3 @@
+husky_gpio_signal:
+  gpio_pin: "PBB.00"      # Specify the GPIO pin number
+  buffer_time: 180.0       # Buffer time in seconds (avoid multiple triggers within this time window)
