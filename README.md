@@ -203,7 +203,7 @@ export HUSKY_LASER_3D_RPY='0 0 0'
 B) Configure params for rviz visualization:
 Default behavior of this package is that if HUSKY_RVIZ is true, rviz visualization is opened up alongside the gazebo simulation with the configuration file specified in HUSKY_RVIZ_CONF environment params. The second parameter is the name of the rviz file which must be located inside the /husky_coal_viz/rviz directory.
 
-If users wish to change the default values, they can do so in terminal by:
+If users wish to change the default values, they can do so in terminal:
 ```
 export HUSKY_RVIZ=0
 export HUSKY_RVIZ_CONF=<rviz_config_filename.rviz>
@@ -223,7 +223,7 @@ Start the base functions
 roslaunch husky_base base3.launch
 ```
 
-This can be started with options by:
+This can be started with options:
 ```
 roslaunch husky_base base3.launch arg:=value arg:=value
 ```
@@ -241,7 +241,8 @@ E.g., the following arguments can be added to the above command:
 
 #### On host machine
 
-Open 3 command windows (Ctrl+Alt+T):
+Open three command windows (Ctrl+Alt+T):
+
 1. Start logitech joystick for remote control:
 ```
 roslaunch husky_coal_control teleop.launch
@@ -251,7 +252,7 @@ roslaunch husky_coal_control teleop.launch
 rviz -d $HUSKY_RVIZ_CONF
 # rviz -d ~/husky-mine-rescuer-o/rviz/g_cart_n4.viz
 ```
-3. Use third terminal to monitor rosnodes,rostopics,rosgraph etc.
+3. Use third terminal to monitor rosnodes, rostopics, rosgraph, etc.
 ```
 rqt_graph &
 rosrun rqt_tf_tree rqt_tf_tree &
