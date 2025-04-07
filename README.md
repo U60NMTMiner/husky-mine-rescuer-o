@@ -15,7 +15,7 @@ Disclaimer: The package is a combination of existing open-source github packages
 - [OUSTER-DESCRIPTION](https://github.com/clearpathrobotics/ouster_description.git) - License: BSD-3-Clause
 - [CARTOGRAPHER](https://github.com/cartographer-project/cartographer.git) - License: Apache-2.0
 - [CARTOGRAPHER-ROS](https://github.com/cartographer-project/cartographer_ros.git) - License: Apache-2.0
-- [HUSKY-MINE-RESCUER-N](https://github.com/U60NMTMiner/husky-mine-rescuer-n.git) - License: BSD-3-Clause
+- [HUSKY-MINE-RESCUER-N](https://github.com/U60NMTMiner/husky-mine-rescuer-n.git) - License: BSD-3-Clause - (note: previous version w/o move_base and node RSSI tracking)
 
 ## Requirements
 
