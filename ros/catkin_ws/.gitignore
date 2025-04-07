@@ -1,0 +1,9 @@
+# Ignore catkin build artifacts
+build_isolated/
+devel_isolated/
+install_isolated/
+
+# Optional: logs, caches, etc.
+#logs/
+*.pyc
+*.swp
