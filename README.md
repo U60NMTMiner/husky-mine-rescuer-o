@@ -104,11 +104,13 @@ cd $ws/ros/catkin_ws && catkin_make_isolated --use-ninja -j8
 ```
 
  OR (if only one specific package is desired)
-```cd ros/catkin_ws && catkin_make_isolated --use-ninja -j8 --pkg <package_name>
+```
+cd $ws/ros/catkin_ws && catkin_make_isolated --use-ninja -j8 --pkg <package_name>
 ```
    
  OR (if a specific package is not desired)
-```cd ros/catkin_ws && catkin_make_isolated --use-ninja -j8 --ignore-pkg <package_name>
+```
+cd $ws/ros/catkin_ws && catkin_make_isolated --use-ninja -j8 --ignore-pkg <package_name>
 ```
 
 
