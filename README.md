@@ -92,13 +92,15 @@ sudo apt-get remove ros-noetic-abseil-cpp || true
 
 B.4) HUSKY packages - more information at [HUSKY](http://wiki.ros.org/Robots/Husky)
 
-```sudo apt-get install ros-$ROS_DISTRO-husky-* 
+```
+sudo apt-get install ros-$ROS_DISTRO-husky-* 
 ```
 
 ### 3. Build the downloaded packages
 
 A) On HUSKY/Carl:
-```cd $ws/ros/catkin_ws && catkin_make_isolated --use-ninja -j8 
+```
+cd $ws/ros/catkin_ws && catkin_make_isolated --use-ninja -j8 
 ```
 
  OR (if only one specific package is desired)
@@ -111,23 +113,28 @@ A) On HUSKY/Carl:
 
 
 B) On a host-laptop (the remote control machine) only the control and description packages are necessary:
-```cd ros/catkin_ws && catkin_make_isolated --use-ninja -j8 --pkg husky_coal_control husky_coal_description
+```
+cd ros/catkin_ws && catkin_make_isolated --use-ninja -j8 --pkg husky_coal_control husky_coal_description
 ```
 
 ### 4. Additional settings after installation (do not skip)
 
 A) Source your workspace (permanently):
-```echo "source $ws/ros/catkin_ws/devel_isolated/setup.bash" >> ~/.bashrc
+```
+echo "source $ws/ros/catkin_ws/devel_isolated/setup.bash" >> ~/.bashrc
 ```
 B) Set necessary environment parameters:  
 On HUSKY/Carl: 
-```echo "source $ws/scripts/env_husky.sh" >> ~/.bashrc
+```
+echo "source $ws/scripts/env_husky.sh" >> ~/.bashrc
 ```
 On host: 
-```echo "source $ws/scripts/env_ctrl.sh" >> ~/.bashrc
+```
+echo "source $ws/scripts/env_ctrl.sh" >> ~/.bashrc
 ```
 C) Source bashrc (on all machines)
-```source ~/.bashrc
+```
+source ~/.bashrc
 ```
 
 D) Set environment parameters for the robot: 
@@ -138,12 +145,14 @@ export HUSKY_DESCRIPTION=$(rospack find husky_coal_description)/urdf/husky_OS1-6
 ```
 
 E) Check environment parameters:
-```env | grep -e ROS_* -e HUSKY_*  
+```
+env | grep -e ROS_* -e HUSKY_*  
 ```
 
 F) Add the husky ip to your /etc/hosts, where {husky-ip} is the ip address of the husky in the form of xxx.xxx.xxx.xxx. The ip address will change occasionally. Instead of running the following command, simply edit the /etc/hosts file to include the new ip. 
 
-```sudo bash -c "echo \"xxx.xxx.xxx.xxx    husky\" >> /etc/hosts"
+```
+sudo bash -c "echo \"xxx.xxx.xxx.xxx    husky\" >> /etc/hosts"
 ```
 
 G) Set ROS_MASTER_IP and ROS_IP parameters, where <husky-ip> and <host-ip> are the IPs of the husky and the host respectively and MUST be IP on the same network:
@@ -213,7 +222,8 @@ roslaunch husky_base base3.launch
 ```
 
 This can be started with options by:
-```roslaunch husky_base base3.launch arg:=value arg:=value
+```
+roslaunch husky_base base3.launch arg:=value arg:=value
 ```
 
 E.g., the following arguments can be added to the above command:
