@@ -20,8 +20,8 @@ Disclaimer: The package is a combination of existing open-source github packages
 ## Requirements
 
 - [ROS Noetic](http://wiki.ros.org/noetic/Installation/Ubuntu) or [ROS Melodic](http://wiki.ros.org/melodic/Installation/Ubuntu)
-- Requirements for [Cartographer](see https://google-cartographer-ros.readthedocs.io/en/latest/compilation.html#system-requirements)
-- Requirements for [LIO-SAM]see description of dependenceis at https://github.com/TixiaoShan/LIO-SAM.git)
+- Requirements for Cartographer (see https://google-cartographer-ros.readthedocs.io/en/latest/compilation.html#system-requirements)
+- Requirements for LIO-SAM (see description of dependenceis at https://github.com/TixiaoShan/LIO-SAM.git)
 
 
 ## Installation steps
