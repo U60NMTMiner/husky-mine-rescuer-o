@@ -42,7 +42,7 @@
 # D-pad Vert.      7
 
 teleop_twist_joy:
-  axis_linear: 1
+  axis_linear: 4
   scale_linear: 0.4
   scale_linear_turbo: 1.0
   axis_angular: 3
