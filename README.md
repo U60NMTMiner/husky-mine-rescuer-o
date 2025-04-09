@@ -9,7 +9,7 @@ A Clearpath Robotics HUSKY UGV carrying an Ouster 3D LiDAR (OS1) deploys gmappin
 
 Disclaimer: The package is a combination of existing open-source github packages with BSD-3-Clause & Apache-2.0 licenses. Thus, the current package is under Apache-2.0 license.
 
-## The software-stack is using concepts and files from
+## Sources (concepts, code)
 
 - [HUSKY](https://github.com/husky/husky.git) - License: BSD-3-Clause
 - [HUSKY-LIO-SAM](https://github.com/FarzadAziziZade/Husky-LIO-SAM.git) - License: Not listed  
@@ -269,5 +269,13 @@ rosrun map_server map_saver -f <path/to/my/map/file_name>
 
 ```
 
-## Screenshots (to be edited)
-Add assets and screenshots 
+## Screenshots 
+![ROS nodes & topics grapg](/assets/rqt_sc/rosgraph2.png)
+
+![Robot surrounding zoom-in](/assets/screenshots/NMT_MSEC_RM170_rviz_costmap.png)
+
+![Costmap and occupancy grid map (gmapping) of NMT MSEC halls](/assets/screenshots/NMT_MSEC_rviz_costmap.png)
+
+![Occupancy grid map of NMT MSEC halls (map_saver output)](/assets/screenshots/NMT_MSEC_OccGrid_map.pgm)
+
+
