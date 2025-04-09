@@ -4,6 +4,7 @@
 #include <jsoncpp/json/json.h>
 #include <iostream>
 #include <sstream>
+#include <iterator>
 
 // Callback function to handle HTTP response from cURL
 size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::string* output) {
@@ -20,6 +21,28 @@ bool getRosParam(ros::NodeHandle &nh, std::string param_name, std::vector<std::s
         ROS_ERROR("No IP addresses provided in the ROS parameter server!");
         return false;
     }
+}
+
+bool getRosParam2(ros::NodeHandle &nh, const std::string &param_name, std::vector<std::string> &param_value) {
+    // Try to get it directly as a vector of strings
+    if (nh.getParam(param_name, param_value)) {
+        return true;
+    }
+
+    // If that fails, try to get it as a string and split
+    std::string param_string;
+    if (nh.getParam(param_name, param_string)) {
+        std::istringstream iss(param_string);
+        param_value = std::vector<std::string>{std::istream_iterator<std::string>{iss}, std::istream_iterator<std::string>{}};
+        if (!param_value.empty()) {
+            ROS_WARN("IP addresses were provided as a single string. Split into %lu entries.", param_value.size());
+            return true;
+        }
+    }
+
+    // If all fails
+    ROS_ERROR("No valid IP addresses found in the ROS parameter server!");
+    return false;
 }
 
 // Function to fetch data from a given IP address
@@ -124,6 +147,46 @@ void getDropStatus(const std::vector<std::string>& ip_addresses, double rssi_thr
     }
 }
 
+// For debugging purposes only
+void debugPrintParamType(const ros::NodeHandle& nh, const std::string& param_name) {
+    XmlRpc::XmlRpcValue param;
+    if (!nh.getParam(param_name, param)) {
+        ROS_WARN("Param '%s' not found.", param_name.c_str());
+        return;
+    }
+
+    switch (param.getType()) {
+        case XmlRpc::XmlRpcValue::TypeBoolean:
+            ROS_INFO("Param '%s' is of type: Boolean", param_name.c_str());
+            break;
+        case XmlRpc::XmlRpcValue::TypeInt:
+            ROS_INFO("Param '%s' is of type: Integer", param_name.c_str());
+            break;
+        case XmlRpc::XmlRpcValue::TypeDouble:
+            ROS_INFO("Param '%s' is of type: Double", param_name.c_str());
+            break;
+        case XmlRpc::XmlRpcValue::TypeString:
+            ROS_INFO("Param '%s' is of type: String", param_name.c_str());
+            break;
+        case XmlRpc::XmlRpcValue::TypeArray:
+            ROS_INFO("Param '%s' is of type: Array", param_name.c_str());
+            break;
+        case XmlRpc::XmlRpcValue::TypeStruct:
+            ROS_INFO("Param '%s' is of type: Struct", param_name.c_str());
+            break;
+        case XmlRpc::XmlRpcValue::TypeDateTime:
+            ROS_INFO("Param '%s' is of type: DateTime", param_name.c_str());
+            break;
+        case XmlRpc::XmlRpcValue::TypeBase64:
+            ROS_INFO("Param '%s' is of type: Base64", param_name.c_str());
+            break;
+        case XmlRpc::XmlRpcValue::TypeInvalid:
+        default:
+            ROS_WARN("Param '%s' is of invalid or unknown type", param_name.c_str());
+            break;
+    }
+}
+
 
 int main(int argc, char** argv) {
     const char* topic_env = std::getenv("HUSKY_NODEDROP_TOPIC");
@@ -132,16 +195,18 @@ int main(int argc, char** argv) {
     ros::init(argc, argv, "husky_nodedrop_node");
     ros::NodeHandle nh("~");  // Use private namespace to read parameters
 
-   std::vector<std::string> ip_addresses;
+    std::vector<std::string> ip_addresses;
     double polling_rate;
     double rssi_threshold;
+    
+    debugPrintParamType(nh, "ip_addresses"); //debugging purposes
 
     // Fetch parameters from ROS param server
-    if (!getRosParam(nh, "/husky_nodedrop/ip_addresses", ip_addresses)) {
+    if (!getRosParam2(nh, "ip_addresses", ip_addresses)) {
         return -1;  // Exit if IP addresses are missing
     }
-    nh.param("/husky_nodedrop/polling_rate", polling_rate, 1.0);
-    nh.param("/husky_nodedrop/rssi_threshold", rssi_threshold, -80.0);
+    nh.param("polling_rate", polling_rate, 1.0);
+    nh.param("rssi_threshold", rssi_threshold, -80.0);
 
     // Ensure at least one IP is provided
     if (ip_addresses.empty()) {

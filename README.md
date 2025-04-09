@@ -4,7 +4,7 @@
 
 A Clearpath Robotics HUSKY UGV carrying an Ouster 3D LiDAR (OS1) deploys gmapping and move-base for exploring through remote control unknown and offline environments. Developed with the goal of carrying out mine search and rescue operations, it integrates its own communication node-dropping functionality. His name is still Carl.
 
-Disclaimer: The package is a combination of existing open-source github packages and has a BSD-3-Clause license.
+Disclaimer: The package is a combination of existing open-source github packages with BSD-3-Clause & Apache-2.0 licenses. Thus, the current package is under Apache-2.0 license.
 
 ## The software-stack is using concepts and files from
 
@@ -15,13 +15,13 @@ Disclaimer: The package is a combination of existing open-source github packages
 - [OUSTER-DESCRIPTION](https://github.com/clearpathrobotics/ouster_description.git) - License: BSD-3-Clause
 - [CARTOGRAPHER](https://github.com/cartographer-project/cartographer.git) - License: Apache-2.0
 - [CARTOGRAPHER-ROS](https://github.com/cartographer-project/cartographer_ros.git) - License: Apache-2.0
-- [HUSKY-MINE-RESCUER-N](https://github.com/U60NMTMiner/husky-mine-rescuer-n.git) - License: BSD-3-Clause - (note: previous version w/o move_base and node RSSI tracking)
+- [HUSKY-MINE-RESCUER-N](https://github.com/U60NMTMiner/husky-mine-rescuer-n.git) - License: Apache-2.0 (note: previous version w/o move_base and node RSSI tracking)
 
 ## Requirements
 
 - [ROS Noetic](http://wiki.ros.org/noetic/Installation/Ubuntu) or [ROS Melodic](http://wiki.ros.org/melodic/Installation/Ubuntu)
-- Requirements for Cartographer (see https://google-cartographer-ros.readthedocs.io/en/latest/compilation.html#system-requirements)
-- Requirements for LIO-SAM (see description of dependenceis at https://github.com/TixiaoShan/LIO-SAM.git)
+- Requirements for [Cartographer](https://google-cartographer-ros.readthedocs.io/en/latest/compilation.html#system-requirements)
+- Dependencies from [LIO-SAM](https://github.com/TixiaoShan/LIO-SAM.git)
 
 
 ## Installation steps
@@ -84,9 +84,10 @@ sudo apt install -y         \
     cmake
 ```
 
-B.3) Cartographer dependencies
+B.3) Cartographer dependencies (for troubleshooting see [Cartographer ROS: Building & Installation](https://google-cartographer-ros.readthedocs.io/en/latest/compilation.html#building-installation)
+
 ```
-sudo apt-get remove ros-noetic-abseil-cpp || true
+sudo apt-get remove ros-$ROS_DISTRO-abseil-cpp || true
 /bin/bash $ws/ros/catkin_ws/src/cartographer/scripts/install_abseil.sh || true 
 ```
 
@@ -114,9 +115,9 @@ cd $ws/ros/catkin_ws && catkin_make_isolated --use-ninja -j8 --ignore-pkg <packa
 ```
 
 
-B) On a host-laptop (the remote control machine) only the control and description packages are necessary:
+B) On a host-laptop (i.e., remote control machine) there is no need to install cartographer and lio_sam:
 ```
-cd ros/catkin_ws && catkin_make_isolated --use-ninja -j8 --pkg husky_coal_control husky_coal_description
+cd ros/catkin_ws && catkin_make_isolated --use-ninja -j8 --ignore-pkg lio_sam cartographer cartographer_ros cartographer_rviz
 ```
 
 ### 4. Additional settings after installation (do not skip)
@@ -125,7 +126,8 @@ A) Source your workspace (permanently):
 ```
 echo "source $ws/ros/catkin_ws/devel_isolated/setup.bash" >> ~/.bashrc
 ```
-B) Set necessary environment parameters:  
+B) Set necessary environment parameters: 
+
 On HUSKY/Carl: 
 ```
 echo "source $ws/scripts/env_husky.sh" >> ~/.bashrc
@@ -182,7 +184,7 @@ ssh <user>@husky
 #sudo systemctl restart ros.service #optional - for troubleshooting cases
 ```
 
-### 2. (Optional) Various configurations through environment params
+### 2. (Optional) Configure environment parameters
 
 A) You may set the proper environment parameters to turn on/off sensors, bumpers, etc. See instructions at (https://github.com/husky/husky/tree/noetic-devel/husky_description)
 ```
@@ -258,5 +260,12 @@ rqt_graph &
 rosrun rqt_tf_tree rqt_tf_tree &
 rosnode list
 ```
+4. (Optional) Use map_saver to safe the created occupancy grid maps:
+```
+# Save file_name.pgm and file_name.yaml at the given directory:
+rosrun map_server map_saver -f <path/to/my/map/file_name> 
+
+```
+
 ## Screenshots (to be edited)
 Add assets and screenshots 

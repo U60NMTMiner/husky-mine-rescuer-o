@@ -2,7 +2,9 @@
    <arg name="ip_address" default="$(env HUSKY_NODEDROP_IP)" />
    <arg name="polling_rate" default="$(env HUSKY_POLLING_RATE)" />
    <arg name="rssi_threshold" default="$(env HUSKY_RSSI_THRESHOLD)" />
-
+   <arg name="gpio_pin" default="$(env HUSKY_GPIO_PIN)" />
+   <arg name="buffer_time" default="$(env HUSKY_NODE_INTV_TIME)" />
+   
   <!-- Launch the husky_nodedrop node -->
   <node name="husky_nodedrop_node" pkg="husky_nodedrop" type="husky_nodedrop_node" output="screen">
     
@@ -14,6 +16,17 @@
     
     <!-- Optional: Set the RSSI threshold for triggering drop -->
     <param name="rssi_threshold" value="$(arg rssi_threshold)" />
+
+  </node>
+  
+  <!-- Launch the gpio_signal node -->
+  <node name="husky_gpio_signal_node" pkg="husky_gpio_signal" type="husky_gpio_signal_node" output="screen">
+    
+    <!-- Set the jetson GPIO pin (default is 1 Hz) -->
+    <param name="gpio_pin" value="$(arg gpio_pin)" />
+    
+    <!-- Set buffer time between consecutive nodedrop triggerings -->
+    <param name="buffer_time" value="$(arg buffer_time)" />
 
   </node>
 </launch>

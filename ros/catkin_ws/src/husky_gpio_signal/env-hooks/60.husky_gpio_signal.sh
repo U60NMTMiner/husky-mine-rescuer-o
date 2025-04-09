@@ -43,3 +43,6 @@ sudo chmod 666 /sys/class/gpio/export
 sudo chmod 666 /sys/class/gpio/unexport
 sudo chmod 666 /sys/class/gpio/PBB.00/*  # Allows access to GPIO pins
 
+export HUSKY_NODE_INTV_TIME=180.0 # check also config/**.yaml 
+export HUSKY_GPIO_PIN="PBB.00" 
+

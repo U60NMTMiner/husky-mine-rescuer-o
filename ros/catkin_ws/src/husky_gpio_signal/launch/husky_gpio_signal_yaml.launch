@@ -1,0 +1,9 @@
+<launch>
+    <!-- RSSI reading node declaration -->
+    <rosparam command="load" file="$(find husky_gpio_signal)/config/husky_gpio_signal.yaml" />
+    <node name="husky_gpio_signal_node" pkg="husky_gpio_signal" type="husky_gpio_signal_node" output="screen" />
+
+    <!-- Jetson GPIO control node declaration -->
+    <rosparam command="load" file="$(find husky_nodedrop)/config/husky_nodedrop.yaml" />
+    <node name="husky_nodedrop_node" pkg="husky_nodedrop" type="husky_nodedrop_node" output="screen" />
+</launch>

@@ -116,8 +116,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     </group-->
     
     <group if="$(arg nodedrop)">
-        <include file="$(find husky_nodedrop)/launch/husky_nodedrop_yaml.launch"/>  
-        <include file="$(find husky_gpio_signal)/launch/husky_gpio_signal.launch"/>  
+        <!--include file="$(find husky_nodedrop)/launch/husky_nodedrop_yaml.launch"/-->  
+        <include file="$(find husky_gpio_signal)/launch/husky_gpio_signal_env.launch"/>  
     </group>
 
     <!--group if="$(arg map)">
