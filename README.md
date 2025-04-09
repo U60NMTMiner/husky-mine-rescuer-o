@@ -29,8 +29,7 @@ Disclaimer: The package is a combination of existing open-source github packages
 
 ## Installation steps
 
-
-### 1.Define the ROS distro & your work-space
+### 1. Define ROS distro & workspace
 
 Note: defining commonly used parameters as environment parameters allows for faster implementation as well as for portability of commands. Note that you can either set new environment parameters every time you open a commands windows (will not be available if you open another commands window) or set them as permanent enviroment parameters in the ~/.bashrc file (available to all commands windows)
 
@@ -51,7 +50,7 @@ ws=~/husky-mine-rescuer-o
 echo $ws  #check that the parameter exist and is set correctly
 ```
 
-### 2.Install ROS dependencies & sensor descriptions/rospackages
+### 2. Install ROS dependencies & sensor descriptions/rospackages
 
 A) Install dependencies either by executing:
 ```
@@ -123,7 +122,7 @@ B) On a host-laptop (i.e., remote control machine) there is no need to install c
 cd ros/catkin_ws && catkin_make_isolated --use-ninja -j8 --ignore-pkg lio_sam cartographer cartographer_ros cartographer_rviz
 ```
 
-### 4. Additional settings after installation (do not skip)
+### 4. Set environment parameters
 
 A) Source your workspace (permanently):
 ```
@@ -188,7 +187,7 @@ ssh <user>@husky
 
 ### 2. (Optional) Configure environment parameters
 
-A) You may set the proper environment parameters to turn on/off sensors, bumpers, etc. See instructions at (https://github.com/husky/husky/tree/noetic-devel/husky_description)
+A) You may skip this step if the 4th step of the 'Installation' process covers your needs. Otherwise, you may set the proper environment parameters to turn on/off sensors, bumpers, etc. See instructions at (https://github.com/husky/husky/tree/noetic-devel/husky_description)
 ```
 export HUSKY_FRONT_BUMPER=1 #bumpers
 export HUSKY_REAR_BUMPER=1
@@ -221,7 +220,7 @@ export HUSKY_GMAP=1
 
 ### 3. Launch operations on HUSKY UGV 
 
-#### On husky through ssh
+#### On husky (ssh from host)
 Start the base functions  
 ```
 roslaunch husky_base base3.launch
