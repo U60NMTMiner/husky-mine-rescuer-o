@@ -148,7 +148,6 @@ D) Set environment parameters for the robot:
 Note 1: Some of these parameters are set to the default values when building the packages (through the 'env-hooks' files that some packages contain). Use 'echo' to check or use the following to set to desired values:
 ```
 export HUSKY_DESCRIPTION=$(rospack find husky_coal_description)/urdf/husky_OS1-64_arch.urdf.xacro
-#export HUSKY_GAZEBO_DESCRIPTION=${ws}/src/husky_coal_sim/husky_coal_description/urdf/husky_OS1-64_arch.urdf.xacro
 ```
 
 E) Check environment parameters:
@@ -156,10 +155,10 @@ E) Check environment parameters:
 env | grep -e ROS_* -e HUSKY_*  
 ```
 
-F) Add the husky ip to your /etc/hosts, where {husky-ip} is the ip address of the husky in the form of xxx.xxx.xxx.xxx. The ip address will change occasionally. Instead of running the following command, simply edit the /etc/hosts file to include the new ip. 
+F) Add the husky ip to your /etc/hosts, where <husky-ip> is the ip address of the husky in the form of xxx.xxx.xxx.xxx. The ip address will change occasionally. Instead of running the following command, simply edit the /etc/hosts file to include the new ip. 
 
 ```
-sudo bash -c "echo \"xxx.xxx.xxx.xxx    husky\" >> /etc/hosts"
+sudo bash -c "echo \"<husky-ip>    husky\" >> /etc/hosts"
 ```
 
 G) Set ROS_MASTER_IP and ROS_IP parameters, where <husky-ip> and <host-ip> are the IPs of the husky and the host respectively and MUST be IP on the same network:
@@ -171,10 +170,10 @@ echo "ROS_IP=<husky-ip>" >> ~/.bashrc
 
 On host:
 ```
-echo "ROS_MASTER_URI=http://husky:11311" >> ~/.bashrc
+echo "ROS_MASTER_URI=http://<husky-ip>:11311" >> ~/.bashrc
 echo "ROS_IP=<host-ip>" >> ~/.bashrc 
-ufw allow from husky
-ufw allow to husky
+ufw allow from <husky-ip>
+ufw allow to <husky-ip>
 ```
 
 ## How to run the HUSKY robot remotely from host
