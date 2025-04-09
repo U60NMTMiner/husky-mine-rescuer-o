@@ -1,5 +1,8 @@
 # Husky Mine Rescuer
 
+![License](https://img.shields.io/github/license/U60NMTMiner/husky-mine-rescuer-o)
+![ROS Noetic](https://img.shields.io/badge/ROS-Noetic-blue.svg)
+
 ## Overview
 
 A Clearpath Robotics HUSKY UGV carrying an Ouster 3D LiDAR (OS1) deploys gmapping and move-base for exploring through remote control unknown and offline environments. Developed with the goal of carrying out mine search and rescue operations, it integrates its own communication node-dropping functionality. His name is still Carl.
@@ -19,7 +22,7 @@ Disclaimer: The package is a combination of existing open-source github packages
 
 ## Requirements
 
-- [ROS Noetic](http://wiki.ros.org/noetic/Installation/Ubuntu) or [ROS Melodic](http://wiki.ros.org/melodic/Installation/Ubuntu)
+- [ROS Noetic](http://wiki.ros.org/noetic/Installation/Ubuntu)
 - Requirements for [Cartographer](https://google-cartographer-ros.readthedocs.io/en/latest/compilation.html#system-requirements)
 - Dependencies from [LIO-SAM](https://github.com/TixiaoShan/LIO-SAM.git)
 
