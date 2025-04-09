@@ -32,11 +32,11 @@ export HUSKY_POLLING_RATE=1.0
 export HUSKY_GPIO_PIN="PBB.00" 
 export HUSKY_NODE_INTV_TIME=180.0
 
-export HUSKY_JOY=1
-export HUSKY_LOGITECH=1
+export HUSKY_JOY=0
+export HUSKY_LOGITECH=0
 export HUSKY_KEYB=0
 
-export HUSKY_VIZ=1
+export HUSKY_VIZ=0
 export HUSKY_RVIZ_CONF=${_dir}/../rviz/g_cart_n4.rviz
 
 alias start_base_def="roslaunch husky_base base3.launch"
