@@ -1,23 +1,37 @@
 #!/bin/bash
 
-set -eou pipefail
-export DEBIAN_FRONTEND='noninteractive'
+set -uo pipefail  # Removed -e to allow failures
 
+export DEBIAN_FRONTEND='noninteractive'
 _dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-sudo add-apt-repository -y ppa:borglab/gtsam-release-4.0
-sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-sudo apt-get install curl
-curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+# Functions for logging
+log_info()    { echo -e "\033[1;32m[INFO]\033[0m $*"; }
+log_warning() { echo -e "\033[1;33m[WARNING]\033[0m $*"; }
+log_error()   { echo -e "\033[1;31m[ERROR]\033[0m $*"; }
 
-sudo apt-get update -y
-sudo apt-get upgrade -y
+run_cmd() {
+    "$@" || log_warning "Command failed: $*"
+}
+
+log_info "Adding repositories"
+run_cmd sudo add-apt-repository -y ppa:borglab/gtsam-release-4.0
+run_cmd sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+
+log_info "Installing curl"
+run_cmd sudo apt-get install -y curl
+
+log_info "Adding ROS key"
+run_cmd curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+
+log_info "Updating apt"
+run_cmd sudo apt-get update -y
+run_cmd sudo apt-get upgrade -y
 
 packages=(
     ros-noetic-ros-base
     ros-noetic-rosconsole
     ros-noetic-roscpp
-
     ros-noetic-urdf
     ros-noetic-xacro
     ros-noetic-joy
@@ -37,13 +51,11 @@ packages=(
     ros-noetic-imu-filter-madgwick
     ros-noetic-velodyne
     ros-noetic-socketcan-interface
-
     python3-scipy
     python3-wstool
     python3-rosdep
     python3-catkin-tools
     python-is-python3
-
     libcurl4-openssl-dev
     libspdlog-dev
     libjsoncpp-dev
@@ -56,11 +68,18 @@ packages=(
     stow
 )
 
-sudo apt-get install -yn ${packages[@]}
+log_info "Installing ROS and dependencies"
+run_cmd sudo apt-get install -y "${packages[@]}"
 
-sudo rosdep init || true
-rosdep update
-rosdep install --from-paths ${_dir}/../ros/catkin_ws/src --ignore-src --rosdistro=${ROS_DISTRO} -y
+log_info "Initializing rosdep"
+run_cmd sudo rosdep init
+run_cmd rosdep update
 
-sudo apt-get remove ros-noetic-abseil-cpp || true
-/bin/bash ${_dir}/../ros/catkin_ws/src/cartographer/scripts/install_abseil.sh || true
+log_info "Installing rosdep dependencies for workspace"
+run_cmd rosdep install --from-paths "${_dir}/../ros/catkin_ws/src" --ignore-src --rosdistro="${ROS_DISTRO}" -y
+
+log_info "Removing conflicting package"
+run_cmd sudo apt-get remove -y ros-noetic-abseil-cpp
+
+log_info "Installing Abseil manually"
+run_cmd /bin/bash "${_dir}/../ros/catkin_ws/src/cartographer/scripts/install_abseil.sh"
