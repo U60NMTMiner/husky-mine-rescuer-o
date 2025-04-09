@@ -13,9 +13,6 @@ curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo ap
 sudo apt-get update -y
 sudo apt-get upgrade -y
 
-sudo apt-get remove ros-noetic-abseil-cpp || true
-/bin/bash ${_dir}/../ros/catkin_ws/src/cartographer/scripts/install_abseil.sh || true
-
 packages=(
     ros-noetic-ros-base
     ros-noetic-rosconsole
@@ -61,7 +58,9 @@ packages=(
 
 sudo apt-get install -yn ${packages[@]}
 
-
 sudo rosdep init || true
 rosdep update
 rosdep install --from-paths ${_dir}/../ros/catkin_ws/src --ignore-src --rosdistro=${ROS_DISTRO} -y
+
+sudo apt-get remove ros-noetic-abseil-cpp || true
+/bin/bash ${_dir}/../ros/catkin_ws/src/cartographer/scripts/install_abseil.sh || true
