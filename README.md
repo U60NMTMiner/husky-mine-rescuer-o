@@ -275,6 +275,6 @@ rosrun map_server map_saver -f <path/to/my/map/file_name>
 
 ![Costmap and occupancy grid map (gmapping) of NMT MSEC halls](/assets/screenshots/NMT_MSEC_rviz_costmap.png)
 
-![Occupancy grid map of NMT MSEC halls (map_saver output)](/assets/screenshots/NMT_MSEC_OccGrid_map.pgm)
+![Occupancy grid map of NMT MSEC halls (map_saver output)](/assets/screenshots/NMT_MSEC_OccGrid_map.png)
 
 
