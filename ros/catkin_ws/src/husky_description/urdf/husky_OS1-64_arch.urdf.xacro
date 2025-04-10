@@ -436,6 +436,17 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
  <!--     <origin xyz="0 0 1.2" rpy="$(arg laser_3d_rpy)" />    -->
  <!--     <parent link="base_link"/>    -->
       <child link="os_sensor"/>
-    </joint>
+   </joint>
+   
+ <!--
+      Ouster Link for imu (separate from ouster lidar data
+  -->   
+   <link name="os_imu"/>
+   <joint name="os_imu_joint" type="fixed">
+     <parent link="OS1_sensor_arch_mount_link"/>
+     <child link="os_imu" />
+     <origin xyz="0.006253 -0.011775 0.007645" rpy="0 0 0" />
+   </joint> 
+    
     
 </robot>
