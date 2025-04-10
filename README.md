@@ -270,12 +270,12 @@ rosrun map_server map_saver -f <path/to/my/map/file_name>
 ```
 
 ## Screenshots 
-![ROS nodes & topics grapg](/assets/rqt_sc/rosgraph2.png)
+![ROS nodes & topics grapg](/assets/rqt_sc/rosgraph.png)
 
 ![Robot surrounding zoom-in](/assets/screenshots/NMT_MSEC_RM170_rviz_costmap.png)
 
 ![Costmap and occupancy grid map (gmapping) of NMT MSEC halls](/assets/screenshots/NMT_MSEC_rviz_costmap.png)
 
-![Occupancy grid map of NMT MSEC halls (map_saver output)](/assets/screenshots/NMT_MSEC_OccGrid_map.png)
+![Occupancy grid map of NMT MSEC halls (map_saver output)](/assets/screenshots/NMT_MSEC_OccGr_map.png)
 
 
