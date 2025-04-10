@@ -178,7 +178,8 @@ ufw allow to <husky-ip>
 ## How to run the HUSKY robot remotely from host
 
 ### 1. Connect the host to the HUSKY Wi-Fi hotspot & ssh to HUSKY UGV
-Note: On start-up Husky robot deploys its own hotspot, e.g. <hotspot-name>) 
+Note: On start-up Husky robot deploys its own hotspot, e.g. hotspot-name
+
 On host:
 ```
 sudo nmcli connection up <hotspot-name>
