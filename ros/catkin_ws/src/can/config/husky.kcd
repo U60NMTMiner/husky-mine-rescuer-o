@@ -1,0 +1,66 @@
+<!-- -*- xml -*- -->
+<NetworkDefinition
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://kayak.2codeornot2code.org/1.0"
+    xsi:noNamespaceSchemaLocation="Definition.xsd">
+    <Document name="Carl" version="0.0" author="Niall Devlin"
+              date="2023-07-26">
+        A little description goes here
+    </Document>
+
+    <!--Node for each can module-->
+    <Node id="0" name="Jetson"/>
+    <Node id="1" name="Drone"/>
+    <Node id="2" name="Node"/>
+
+    <Bus name="Main">
+        <Message id="0x000" name="EStop">
+            <!-- Which node gets this -->
+            <Producer>
+                <NodeRef id="0"/>
+            </Producer>
+            <Signal name="Stop" offset="0" length="8"/>
+        </Message>
+
+        <Message id="0x001" name="Stepper">
+            <Producer>
+                <NodeRef id="0"/>
+            </Producer>
+            <Signal name="id" offset="0" length="1"/>
+            <Signal name="dir" offset="1" length="1"/>
+            <Signal name="speed" offset="2" length="6"/>
+        </Message>
+        
+        <Message id="0x002" name="Servo">
+            <Producer>
+                <NodeRef id="0"/>
+            </Producer>
+            <Signal name="id" offset="0" length="1"/>
+            <Signal name="pos" offset="1" length="7"/>
+        </Message>
+
+        <Message id="0x003" name="Drawer">
+            <Producer>
+                <NodeRef id="1"/>
+            </Producer>
+            <Signal name="Pos" offset="0" length="1">
+                <LabelSet>
+                    <Label name="Retract" value="0" />
+                    <Label name="Extend" value="1" />
+                </LabelSet>
+            </Signal>
+        </Message>
+
+        <Message id="0x004" name="Dropper">
+            <Producer>
+                <NodeRef id="2"/>
+            </Producer>
+            <Signal name="Drop" offset="0" length="1">
+                <LabelSet>
+                    <Label name="False" value="0" />
+                    <Label name="True" value="1" />
+                </LabelSet>
+            </Signal>
+        </Message>
+    </Bus>
+</NetworkDefinition>
