@@ -31,6 +31,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <arg name="base" default="true" />
     <arg name="port" default="$(optenv HUSKY_PORT /dev/prolific)" />
     <arg name="ouster" default="$(optenv HUSKY_OUSTER_ENABLED true)" />
+    <arg name="ouster_host" default="$(optenv HUSKY_OUSTER_HOSTNAME os-122238000296.local)" />
     <arg name="nodedrop" default="$(optenv HUSKY_NODEDROP true)" />
     <arg name="imu" default="false" /> <!-- this means vectornav IMU-->
     <arg name="pi_addr" default="$(optenv PI_ADDRESS 10.0.0.5)" /> <!-- rasp-Pi with vnav IMU-->
@@ -97,7 +98,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <include file="$(find ouster_ros)/launch/sensor.launch">  
             <!--arg name="sensor_hostname" value="10.0.0.4"/-->  
             <!--arg name="sensor_hostname" value="ouster"/-->  <!--check ouster in /etc/hosts-->
-            <arg name="sensor_hostname" value="os-122238000296.local" />
+            <arg name="sensor_hostname" value="$(arg ouster_host)" />
             <arg name="udp_dest" value="10.0.0.1" />
             <!--arg name="udp_dest" value="192.168.0.111" /-->
             <arg name="lidar_port" value="7502" />

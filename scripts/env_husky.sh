@@ -17,6 +17,7 @@ export HUSKY_PORT=/dev/ttyUSB0
 export HUSKY_DESCRIPTION=${_dir}/../ros/catkin_ws/src/husky_description/urdf/husky_OS1-64_arch.urdf.xacro
 
 export HUSKY_OUSTER_ENABLED=1
+export HUSKY_OUSTER_HOSTNAME=os-122238000296.local
 export HUSKY_LASER_3D_ENABLED=1
 export HUSKY_LASER_3D_PREFIX=ouster
 export HUSKY_LASER_SCAN_TOPIC=/scan
